@@ -1,0 +1,73 @@
+if [[ -a ~/.secrets ]] then
+  source ~/.secrets
+fi
+
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+# used to be kardan
+ZSH_THEME="juanghurtado"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git osx rvm textmate zsh-syntax-highlighting vi-mode ruby bundler )
+
+source $ZSH/oh-my-zsh.sh
+
+# Only going to work if you have Xcode.app installed
+GIT_HOME=/Applications/Xcode.app/Contents/Developer
+
+# Get it at http://postgresapp.com/
+POSTGRES_APP_BIN=/Applications/PostgreSQL/Postgres.app/Contents/MacOS/bin
+
+# Add Git executables, postgres app, etc.
+export PATH=${GIT_HOME}/usr/bin:${POSTGRES_APP_BIN}:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11/bin
+
+# 'coz I use man all the time, yoh
+export MANPATH=${GIT_HOME}/usr/share/man:${MANPATH}
+
+export VISUAL=`which vim` # I used to use mvim for all my quick editing needs, but I've since embraced :wq
+export EDITOR=`which vim` # "`which mvim` -f --nomru -c 'au VimLeave * !open -a Terminal'"
+
+# Once you discover C-x-e, you'll never go back
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
+
+# bye bye textmate. thanks for all the fish
+# set EDITOR `which mate`
+
+# current directory rememberer hack
+# http://robots.thoughtbot.com/post/17712589200/run-a-command-every-time-you-change-directories-in-zsh
+export CURRENT_PROJECT_PATH=$HOME/.current-project
+
+function chpwd {
+  echo $(pwd) >! $CURRENT_PROJECT_PATH
+}
+
+current() {
+  if [[ -f $CURRENT_PROJECT_PATH ]]; then
+    cd "$(cat $CURRENT_PROJECT_PATH)"
+  fi
+}
+
+current

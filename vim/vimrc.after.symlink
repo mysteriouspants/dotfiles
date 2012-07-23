@@ -1,0 +1,22 @@
+syntax enable
+if has('gui_running')
+  " I just can't seem to get off this darn theme. It's like crack man!
+  colorscheme mac_classic
+else
+  " I use the 'Pro' Terminal.app theme; ir_black looks better in it
+  colorscheme ir_black
+end
+
+" disable stupid swapfiles
+set noswapfile
+set nobackup
+set nowb
+
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
+
+" scrolling
+set scrolloff=8
+set sidescrolloff=15
+set sidescroll=1

@@ -1,0 +1,8 @@
+*.xcodeproj/*.xcworkspace
+*.xcodeproj/xcuserdata
+*.xcodeproj/xcshareddata
+.DS_Store
+.swp
+.sass-cache
+.less-cache
+.rbx

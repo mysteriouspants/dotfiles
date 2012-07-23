@@ -1,0 +1,10 @@
+[color]
+  ui = true
+[user]
+	name = Chris Miller
+	email = nserror@me.com
+[core]
+	editor=`which vim` # "mvim -f --nomru -c \"au VimLeave * !open -a Terminal\""
+	excludesfile = /Users/cmiller/.gitignore_global
+[push]
+  default = tracking
