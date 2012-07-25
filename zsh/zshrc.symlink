@@ -48,6 +48,8 @@ export MANPATH=${GIT_HOME}/usr/share/man:${MANPATH}
 export VISUAL=`which vim` # I used to use mvim for all my quick editing needs, but I've since embraced :wq
 export EDITOR=`which vim` # "`which mvim` -f --nomru -c 'au VimLeave * !open -a Terminal'"
 
+export RBXOPT='-Xrbc.db=/tmp'
+
 # Once you discover C-x-e, you'll never go back
 autoload -U edit-command-line
 zle -N edit-command-line
