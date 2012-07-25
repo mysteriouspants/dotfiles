@@ -12,8 +12,8 @@ set noswapfile
 set nobackup
 set nowb
 
-silent !mkdir ~/.vim/backups > /dev/null 2>&1
-set undodir=~/.vim/backups
+silent !mkdir ~/.vim-backups > /dev/null 2>&1
+set undodir=~/.vim-backups
 set undofile
 
 " scrolling
