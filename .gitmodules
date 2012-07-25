@@ -13,3 +13,6 @@
 [submodule "vim/vim.symlink"]
 	path = vim/vim.symlink
 	url = git@github.com:carlhuda/janus.git
+[submodule "vim/janus.symlink/vim-nerdtree-tabs"]
+	path = vim/janus.symlink/vim-nerdtree-tabs
+	url = git@github.com:jistr/vim-nerdtree-tabs.git
