@@ -1,75 +1,88 @@
-if [[ -a ~/.secrets ]] then
-  source ~/.secrets
-fi
+# #################################### #
+# SECRETS - Environment variables that #
+#           shouldn't be publicized    #
+# #################################### #
 
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+if [[ -a ~/.secrets ]] then source ~/.secrets; fi
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# used to be kardan
-ZSH_THEME="juanghurtado"
+# #################################### #
+# PATH - Various things to amend the   #
+#        executable search path        #
+# #################################### #
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx rvm textmate zsh-syntax-highlighting ruby bundler )
-
-source $ZSH/oh-my-zsh.sh
-
-# Only going to work if you have Xcode.app installed
+# Git - Use the Git install from Xcode.app
 GIT_HOME=/Applications/Xcode.app/Contents/Developer
-
-# Get it at http://postgresapp.com/
+GIT_PATH=${GIT_HOME}/usr/bin
+# PosgreSQL - Get it at http://postgresapp.com/
 POSTGRES_APP_BIN=/Applications/PostgreSQL/Postgres.app/Contents/MacOS/bin
-
-# Add Git executables, postgres app, etc.
-export PATH=${GIT_HOME}/usr/bin:${POSTGRES_APP_BIN}:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11/bin
-
+# The actual export line - how exciting!
+export PATH=${GIT_PATH}:${POSTGRES_APP_BIN}:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11/bin
 # 'coz I use man all the time, yoh
 export MANPATH=${GIT_HOME}/usr/share/man:${MANPATH}
 
-export VISUAL=`which vim` # I used to use mvim for all my quick editing needs, but I've since embraced :wq
-export EDITOR=`which vim` # "`which mvim` -f --nomru -c 'au VimLeave * !open -a Terminal'"
+# #################################### #
+# OH-MY-ZSH - Because ZSH is cool, and #
+#             Oh-My-Zsh gets some nice #
+#             configurations without a #
+#             lot of work              #
+# #################################### #
 
-export RBXOPT='-Xrbc.db=/tmp'
+ZSH=$HOME/.oh-my-zsh
+
+ZSH_THEME="juanghurtado" # used to be kardan, which I like
+COMPLETION_WAITING_DOTS="true"
+plugins=(zsh-syntax-highlighting git)
+
+# load Oh-My-Zsh!
+source $ZSH/oh-my-zsh.sh
+
+# #################################### #
+# EDITORS - I love me my editors       #
+# #################################### #
+
+export VISUAL=`which vim` # I used to use mvim for all my quick editing needs, but I've since embraced :wq
+export EDITOR=`which vim` # old editor was: "`which mvim` -f --nomru -c 'au VimLeave * !open -a Terminal'"
 
 # Once you discover C-x-e, you'll never go back
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
 
-# bye bye textmate. thanks for all the fish
-# set EDITOR `which mate`
+# #################################### #
+# Ruby! - Perhaps the nicest little    #
+#         slice of heaven ever         #
+# #################################### #
 
-# current directory rememberer hack
+export RBXOPT='-Xrbc.db=/tmp' # kills all the little .rbx directories all over your filesystem
+                              # by putting them all in /tmp; /tmp should get wiped every once
+                              # in a while, but seriously... I don't care.
+# #################################### #
+# AUTOENV - Requires that you install  #
+#           autoenv with homebrew      #
+# #################################### #
+
+source /usr/local/Cellar/autoenv/0.1.0/activate.sh
+
+# #################################### #
+# REMEMBER DIRECTORY HACK - Spiffy     #
+#          little bugger that can      #
+#          save a lot of time          #
+# #################################### #
+
+# doesn't work because of autoenv
 # http://robots.thoughtbot.com/post/17712589200/run-a-command-every-time-you-change-directories-in-zsh
-export CURRENT_PROJECT_PATH=$HOME/.current-project
+#export CURRENT_PROJECT_PATH=$HOME/.current-project
 
-function chpwd {
-  echo $(pwd) >! $CURRENT_PROJECT_PATH
-}
+#function chpwd {
+  #echo $(pwd) >! $CURRENT_PROJECT_PATH
+#}
 
-current() {
-  if [[ -f $CURRENT_PROJECT_PATH ]]; then
-    cd "$(cat $CURRENT_PROJECT_PATH)"
-  fi
-}
+#current() {
+  #if [[ -f $CURRENT_PROJECT_PATH ]]; then
+    #cd "$(cat $CURRENT_PROJECT_PATH)"
+  #fi
+#}
 
-current
+#current
+
+
