@@ -16,7 +16,7 @@ GIT_PATH=${GIT_HOME}/usr/bin
 # PosgreSQL - Get it at http://postgresapp.com/
 POSTGRES_APP_BIN=/Applications/PostgreSQL/Postgres.app/Contents/MacOS/bin
 # The actual export line - how exciting!
-export PATH=${GIT_PATH}:${POSTGRES_APP_BIN}:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11/bin
+export PATH=${GIT_PATH}:${POSTGRES_APP_BIN}:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 # 'coz I use man all the time, yoh
 export MANPATH=${GIT_HOME}/usr/share/man:${MANPATH}
 
@@ -85,4 +85,9 @@ source /usr/local/Cellar/autoenv/0.1.0/activate.sh
 
 #current
 
-
+# svn add and set text/plain eol-style native
+svn_add_and_set () {
+  svn add $1
+  svn pset svn:mime-type text/plain $1
+  svn pset svn:eol-style native $1
+}

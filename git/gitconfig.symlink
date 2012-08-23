@@ -2,7 +2,7 @@
   ui = true
 [user]
 	name = Chris Miller
-	email = nserror@me.com
+	email = lordsauronthegreat@gmail.com
 [core]
 	editor=`which vim` # "mvim -f --nomru -c \"au VimLeave * !open -a Terminal\""
 	excludesfile = /Users/cmiller/.gitignore_global
