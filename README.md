@@ -38,6 +38,9 @@ Finally...
 
 Clone this here repo to `~/.dotfiles` or somewhere nice and quiet.
 
+Remember to add `--recursive` and `--recursive-submodules` or you'll
+have to thunk around with Janus a lot more than should be necessary.
+
 # Step 3: Secrets
 
 Add a `~/.secrets` file for user-specific information. It should look
@@ -49,6 +52,11 @@ something like this:
     export GIT_COMMITTER_EMAIL=''
     export GITHUB_USER='NSError'
     export GITHUB_TOKEN=wtf was this?
+
+# Step 4: Janus
+
+    cd ~/.vim
+    rake
 
 [skwp-dotfiles]: https://github.com/skwp/dotfiles
 [holman-dotfiles]: https://github.com/holman/dotfiles
