@@ -4,7 +4,7 @@ if has('gui_running')
   colorscheme Tomorrow
 else
   " I use the 'Pro' Terminal.app theme; ir_black looks better in it
-  colorscheme Tomorrow-Night
+  colorscheme Tomorrow-Night-Bright
 end
 
 " disable stupid swapfiles
