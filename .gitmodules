@@ -16,6 +16,6 @@
 [submodule "vim/janus.symlink/vim-nerdtree-tabs"]
 	path = vim/janus.symlink/vim-nerdtree-tabs
 	url = git@github.com:jistr/vim-nerdtree-tabs.git
-[submodule "vim/janus.symlink/tomorrow-theme"]
-	path = vim/janus.symlink/tomorrow-theme
-	url = git@github.com:chriskempson/vim-tomorrow-theme.git
+[submodule "vim/janus.symlink/vim-tomorrow-theme"]
+	path = vim/janus.symlink/vim-tomorrow-theme
+	url = git@github.com:NSError/vim-tomorrow-theme.git
