@@ -1,7 +1,7 @@
 syntax enable
 if has('gui_running')
   " I just can't seem to get off this darn theme. It's like crack man!
-  colorscheme Tomorrow
+  colorscheme Mac_Classic
 else
   " I use the 'Pro' Terminal.app theme; ir_black looks better in it
   colorscheme Tomorrow-Night-Bright
