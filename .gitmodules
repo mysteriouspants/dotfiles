@@ -19,3 +19,6 @@
 [submodule "vim/janus.symlink/vim-tomorrow-theme"]
 	path = vim/janus.symlink/vim-tomorrow-theme
 	url = git@github.com:NSError/vim-tomorrow-theme.git
+[submodule "vim/janus.symlink/scons"]
+	path = vim/janus.symlink/scons
+	url = git@github.com:vim-scripts/scons.vim.git

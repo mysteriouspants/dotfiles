@@ -20,3 +20,6 @@ set undofile
 set scrolloff=3
 set sidescrolloff=5
 set sidescroll=1
+
+" Scons buffer detection
+au BufNewFile,BufRead SCons* set filetype=scons
