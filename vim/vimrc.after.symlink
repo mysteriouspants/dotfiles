@@ -1,9 +1,9 @@
+set nocompatible
+
 syntax enable
 if has('gui_running')
-  " I just can't seem to get off this darn theme. It's like crack man!
-  colorscheme Mac_Classic
+  colorscheme Tomorrow-Night
 else
-  " I use the 'Pro' Terminal.app theme; ir_black looks better in it
   colorscheme Tomorrow-Night-Bright
 end
 
@@ -21,5 +21,16 @@ set scrolloff=3
 set sidescrolloff=5
 set sidescroll=1
 
+set cursorline
+set showcmd
+set ttyfast
+
+set spl=en spell
+set nospell
+
 " Scons buffer detection
 au BufNewFile,BufRead SCons* set filetype=scons
+
+if filereadable(".vimrc.proj")
+  so .vimrc.proj
+endif
