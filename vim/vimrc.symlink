@@ -1,0 +1,89 @@
+set nocompatible " be viMproved
+filetype off " required as per vundle install
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
+  " on Linux use + register for copy-paste
+  set clipboard=unnamedplus
+else
+  " one mac and windows, use * register for copy-paste
+  set clipboard=unnamed
+endif
+
+if has('win32') || has('win64')
+  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+endif
+
+" required as per vundle install
+Bundle 'gmarik/vundle'
+" custom bundles here
+Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-surround'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'nathanaelkane/vim-indent-guides'
+
+Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/nerdcommenter'
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
+
+Bundle 'klen/python-mode'
+Bundle 'python.vim'
+Bundle 'python_match.vim'
+Bundle 'pythoncomplete'
+
+Bundle 'leshill/vim-json'
+Bundle 'groenewege/vim-less'
+Bundle 'pangloss/vim-javascript'
+Bundle 'briancollins/vim-jst'
+
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+
+Bundle 'tpope/vim-rails'
+let g:rubycomplete_buffer_loading = 1
+
+Bundle 'tpope/vim-markdown'
+
+set background=dark
+if has('gui_running')
+  colorscheme Tomorrow-Night
+else
+  colorscheme Tomorrow-Night-Bright
+endif
+
+filetype plugin indent on " required as per vundle install
+syntax on
+set mouse=a
+scriptencoding utf-8
+
+set shortmess+=filmnrxoOtT
+set viewoptions=folds,options,cursor,unix,slash
+set virtualedit=onemore
+set history=1000
+set spell
+set hidden
+set noswapfile
+set nobackup
+set nowb
+
+" how to we scroll when we get to the end of the buffer viewport?
+set scrolloff=3
+set sidescrolloff=5
+set sidescroll=1
+
+set cursorline " show the cursor line by highlight
+set showcmd " what did this do?
+set ttyfast " just assume we have a fast terminal
+
+au BufNewFile,BufRead SCons* set filetype=scons
+
+" cursor shape
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"

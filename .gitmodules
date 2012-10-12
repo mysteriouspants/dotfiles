@@ -22,3 +22,6 @@
 [submodule "vim/janus.symlink/scons-compiler-plugin"]
 	path = vim/janus.symlink/scons-compiler-plugin
 	url = git@github.com:vim-scripts/Scons-compiler-plugin.git
+[submodule "vim/vim.symlink"]
+	path = vim/vim.symlink/bundle/vundle
+	url = https://github.com/gmarik/vundle.git
