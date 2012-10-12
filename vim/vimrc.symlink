@@ -17,7 +17,10 @@ endif
 
 " required as per vundle install
 Bundle 'gmarik/vundle'
+
 " custom bundles here
+
+" Even more general stuff
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-surround'
@@ -25,40 +28,109 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'tpope/vim-git'
+Bundle 'vim-scripts/ZoomWin'
 
+" General programming
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
 if executable('ctags')
     Bundle 'majutsushi/tagbar'
 endif
+Bundle 'tpope/vim-endwise'
 
+" Python
 Bundle 'klen/python-mode'
 Bundle 'python.vim'
 Bundle 'python_match.vim'
 Bundle 'pythoncomplete'
+Bundle 'vim-scripts/scons.vim'
+Bundle 'vim-scripts/Scons-compiler-plugin'
 
+" JS & Less CSS
 Bundle 'leshill/vim-json'
 Bundle 'groenewege/vim-less'
 Bundle 'pangloss/vim-javascript'
 Bundle 'briancollins/vim-jst'
+Bundle 'kchmck/vim-coffee-script'
 
+" HTML, CSS, SASS, & friends
 Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+Bundle 'tpope/vim-haml'
+Bundle 'cakebaker/scss-syntax.vim'
 
+" Ruby
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 let g:rubycomplete_buffer_loading = 1
+Bundle 'skwp/vim-rspec'
 
+" Etc?
 Bundle 'tpope/vim-markdown'
+Bundle 'timcharper/textile.vim'
 
 set background=dark
 if has('gui_running')
   colorscheme Tomorrow-Night
+  if has("autocmd")
+    " Automatically resize splits when resizing MacVim window
+    autocmd VimResized * wincmd =
+  endif
 else
   colorscheme Tomorrow-Night-Bright
 endif
 
 filetype plugin indent on " required as per vundle install
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" these are a few of my favs from Janus
+
+" Some file types should wrap their text
+function! s:setupWrapping()
+  set wrap
+  set linebreak
+  set textwidth=72
+  set nolist
+endfunction
+
+if has("autocmd")
+  " In Makefiles, use real tabs, not tabs expanded to spaces
+  au FileType make setlocal noexpandtab
+
+  " Force ftypes on markdown and use wrapping
+  au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown | call s:setupWrapping()
+
+  " use 4 spaces for python indentation
+  au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
+
+  " Remember last location in file, but not for commit messages.
+  " see :help last-position-jump
+  au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g`\"" | endif
+endif
+
+" the mappings from Janus that I actually used:
+
+" use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
+" (it will prompt for sudo password when writing)
+cmap w!! %!sudo tee > /dev/null %
+
+" format the entire file
+nmap <leader>fef ggVG=
+
+" Map the arrow keys to be based on display lines, not physical lines
+map <Down> gj
+map <Up> gk
+
+let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.o$', '\~$']
+
+" Default mapping, <leader>n
+map <leader>n :NERDTreeToggle<CR>
+
+
 syntax on
 set mouse=a
 scriptencoding utf-8
@@ -72,6 +144,74 @@ set hidden
 set noswapfile
 set nobackup
 set nowb
+
+set number
+set ruler
+syntax enable
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set list
+set backspace=indent,eol,start
+
+if exists("g:enable_mvim_shift_arrow")
+  let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
+endif
+
+" List chars
+set listchars=""                  " Reset the listchars
+set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
+set listchars+=trail:.            " show trailing spaces as dots
+set listchars+=extends:>          " The character to show in the last column when wrap is
+                                  " off and the line continues beyond the right of the screen
+set listchars+=precedes:<         " The character to show in the last column when wrap is
+
+""
+"" Searching
+""
+
+set hlsearch    " highlight matches
+set incsearch   " incremental searching
+set ignorecase  " searches are case insensitive...
+set smartcase   " ... unless they contain at least one capital letter
+
+""
+"" Wild settings
+""
+
+" TODO: Investigate the precise meaning of these settings
+" set wildmode=list:longest,list:full
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+
+""
+"" Backup and swap files
+""
+
+set backupdir=~/.vim/_backup//    " where to put backup files.
+set directory=~/.vim/_temp//      " where to put swap files." off and the line continues beyond the right of the screen
+
+if has("statusline") && !&cp
+  set laststatus=2  " always show the status bar
+
+  " Start the status line
+  set statusline=%f\ %m\ %r
+  set statusline+=Line:%l/%L[%p%%]
+  set statusline+=Col:%v
+  set statusline+=Buf:#%n
+  set statusline+=[%b][0x%B]
+endif
 
 " how to we scroll when we get to the end of the buffer viewport?
 set scrolloff=3
