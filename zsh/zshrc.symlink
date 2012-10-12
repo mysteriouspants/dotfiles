@@ -56,34 +56,14 @@ bindkey '\C-x\C-e' edit-command-line
 export RBXOPT='-Xrbc.db=/tmp' # kills all the little .rbx directories all over your filesystem
                               # by putting them all in /tmp; /tmp should get wiped every once
                               # in a while, but seriously... I don't care.
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 # #################################### #
 # AUTOENV - Requires that you install  #
 #           autoenv with homebrew      #
 # #################################### #
 
 source /usr/local/Cellar/autoenv/0.1.0/activate.sh
-
-# #################################### #
-# REMEMBER DIRECTORY HACK - Spiffy     #
-#          little bugger that can      #
-#          save a lot of time          #
-# #################################### #
-
-# doesn't work because of autoenv
-# http://robots.thoughtbot.com/post/17712589200/run-a-command-every-time-you-change-directories-in-zsh
-#export CURRENT_PROJECT_PATH=$HOME/.current-project
-
-#function chpwd {
-  #echo $(pwd) >! $CURRENT_PROJECT_PATH
-#}
-
-#current() {
-  #if [[ -f $CURRENT_PROJECT_PATH ]]; then
-    #cd "$(cat $CURRENT_PROJECT_PATH)"
-  #fi
-#}
-
-#current
 
 # svn add and set text/plain eol-style native
 svn_add_and_set () {

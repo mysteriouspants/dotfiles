@@ -1,7 +1,8 @@
 # NSError's Dotfiles
 
-Largely pilfered from [skwp][skwp-dotfiles] and [holman][holman-dotfiles]'s
-dotfiles. In fact, the whole rakefile is holman's.
+Largely pilfered from [skwp][skwp-dotfiles] and
+[holman][holman-dotfiles]'s dotfiles. In fact, the whole rakefile is
+holman's.
 
 These are my dotfiles. I do not maintain these at a high enough level of
 standard to support other people trying to use this. You're welcome to
@@ -17,9 +18,12 @@ order anyway:
 
 * Xcode
 * Xcode CLI tools
+* OS X GCC installer (if you plan on using any version of ruby before
+  1.9.3 - otherwise this can be skipped).
 * Homebrew
   * Install `macvim`
   * Install `autoenv`
+  * Install `rbenv` and `ruby-build`
   * If still behind that freakin annoying work firewall, install
     `corkscrew`
 * Set default shell to ZSH
