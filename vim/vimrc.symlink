@@ -15,13 +15,17 @@ if has('win32') || has('win64')
   set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
+let NERDTreeHijackNetrw = 0
+
 " required as per vundle install
 Bundle 'gmarik/vundle'
 
 " custom bundles here
 
 " Even more general stuff
+Bundle 'tomtom/tlib_vim'
 Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
@@ -39,6 +43,7 @@ if executable('ctags')
     Bundle 'majutsushi/tagbar'
 endif
 Bundle 'tpope/vim-endwise'
+Bundle 'michaeljsmith/vim-indent-object'
 
 " Python
 Bundle 'klen/python-mode'
@@ -58,6 +63,7 @@ Bundle 'kchmck/vim-coffee-script'
 " HTML, CSS, SASS, & friends
 Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+Bundle 'ap/vim-css-color'
 Bundle 'tpope/vim-haml'
 Bundle 'cakebaker/scss-syntax.vim'
 
@@ -83,8 +89,6 @@ else
 endif
 
 filetype plugin indent on " required as per vundle install
-
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " these are a few of my favs from Janus
 
@@ -125,10 +129,68 @@ nmap <leader>fef ggVG=
 map <Down> gj
 map <Up> gk
 
+" close vim if nerdtree is the only thing open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.o$', '\~$']
-
 " Default mapping, <leader>n
 map <leader>n :NERDTreeToggle<CR>
+
+"if janus#is_plugin_enabled("nerdtree")
+  "let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.o$', '\~$']
+
+  " Default mapping, <leader>n
+  "call janus#add_mapping('nerdtree', 'map', '<leader>n', ':NERDTreeToggle<CR>')
+
+  augroup AuNERDTreeCmd
+  autocmd AuNERDTreeCmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))
+  autocmd AuNERDTreeCmd FocusGained * call s:UpdateNERDTree()
+
+  " If the parameter is a directory, cd into it
+  function s:CdIfDirectory(directory)
+    let explicitDirectory = isdirectory(a:directory)
+    let directory = explicitDirectory || empty(a:directory)
+
+    if explicitDirectory
+      exe "cd " . fnameescape(a:directory)
+    endif
+
+    " Allows reading from stdin
+    " ex: git diff | mvim -R -
+    if strlen(a:directory) == 0
+      return
+    endif
+
+    if directory
+      NERDTree
+      wincmd p
+      bd
+    endif
+
+    if explicitDirectory
+      wincmd p
+    endif
+  endfunction
+
+  " NERDTree utility function
+  function s:UpdateNERDTree(...)
+    let stay = 0
+
+    if(exists("a:1"))
+      let stay = a:1
+    end
+
+    if exists("t:NERDTreeBufName")
+      let nr = bufwinnr(t:NERDTreeBufName)
+      if nr != -1
+        exe nr . "wincmd w"
+        exe substitute(mapcheck("R"), "<CR>", "", "")
+        if !stay
+          wincmd p
+        end
+      endif
+    endif
+  endfunction
+"endif
 
 
 syntax on
