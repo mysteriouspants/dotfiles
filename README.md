@@ -45,6 +45,8 @@ Clone this here repo to `~/.dotfiles` or somewhere nice and quiet.
 Remember to add `--recursive` and `--recursive-submodules` or you'll
 have to thunk around with Janus a lot more than should be necessary.
 
+    git clone --recursive git@github.com:NSError/dotfiles.git ~/.dotfiles
+
 # Step 3: Secrets
 
 Add a `~/.secrets` file for user-specific information. It should look
@@ -57,10 +59,19 @@ something like this:
     export GITHUB_USER='NSError'
     export GITHUB_TOKEN=wtf was this?
 
-# Step 4: Janus
+# Step 4: Vim!
 
-    cd ~/.vim
-    rake
+    vim +BundleInstall +qall
+
+My Vim config has finally left the era of Janus. I'm now rocking a
+custom setup which is something of a hybrid between Janus and spf13's
+vim setup. This has created a very nice situation where I don't have a
+(lot) of stuff I don't use, and I'm not constantly hitting keys and
+finding it doing things I'm not familiar with.
+
+# Step 5: ???
+
+# Step 6: Profit!
 
 [skwp-dotfiles]: https://github.com/skwp/dotfiles
 [holman-dotfiles]: https://github.com/holman/dotfiles
