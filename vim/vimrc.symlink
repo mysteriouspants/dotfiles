@@ -1,293 +1,356 @@
-set nocompatible " be viMproved
-filetype off " required as per vundle install
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" -*- mode: vimscript -*-
+" vi: set ft=vimscript :
 
-if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
-  " on Linux use + register for copy-paste
-  set clipboard=unnamedplus
-else
-  " one mac and windows, use * register for copy-paste
-  set clipboard=unnamed
-endif
+" Environment {
+  " Basics {
+    set nocompatible      " be viMproved
+    filetype off          " required as per vundle install
 
-if has('win32') || has('win64')
-  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-endif
+    " vundle bits
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
 
-let NERDTreeHijackNetrw = 0
-
-" required as per vundle install
-Bundle 'gmarik/vundle'
-
-" custom bundles here
-
-" Even more general stuff
-Bundle 'tomtom/tlib_vim'
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'tpope/vim-git'
-Bundle 'vim-scripts/ZoomWin'
-
-" General programming
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/nerdcommenter'
-if executable('ctags')
-    Bundle 'majutsushi/tagbar'
-endif
-Bundle 'tpope/vim-endwise'
-Bundle 'michaeljsmith/vim-indent-object'
-
-" Python
-Bundle 'klen/python-mode'
-Bundle 'python.vim'
-Bundle 'python_match.vim'
-Bundle 'pythoncomplete'
-Bundle 'vim-scripts/scons.vim'
-Bundle 'vim-scripts/Scons-compiler-plugin'
-
-" JS & Less CSS
-Bundle 'leshill/vim-json'
-Bundle 'groenewege/vim-less'
-Bundle 'pangloss/vim-javascript'
-Bundle 'briancollins/vim-jst'
-Bundle 'kchmck/vim-coffee-script'
-
-" HTML, CSS, SASS, & friends
-Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-Bundle 'ap/vim-css-color'
-Bundle 'tpope/vim-haml'
-Bundle 'cakebaker/scss-syntax.vim'
-
-" Ruby
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-let g:rubycomplete_buffer_loading = 1
-Bundle 'skwp/vim-rspec'
-
-" Etc?
-Bundle 'tpope/vim-markdown'
-Bundle 'timcharper/textile.vim'
-
-set background=dark
-if has('gui_running')
-  colorscheme Tomorrow-Night
-  if has("autocmd")
-    " Automatically resize splits when resizing MacVim window
-    autocmd VimResized * wincmd =
-  endif
-  " don't spell if not in GUI, because the underlines looked FREAKING RETARDED
-  " THERE!
-  set spell
-else
-  colorscheme Tomorrow-Night-Bright
-endif
-
-filetype plugin indent on " required as per vundle install
-
-" these are a few of my favs from Janus
-
-" Some file types should wrap their text
-function! s:setupWrapping()
-  set wrap
-  set linebreak
-  set textwidth=72
-  set nolist
-endfunction
-
-if has("autocmd")
-  " In Makefiles, use real tabs, not tabs expanded to spaces
-  au FileType make setlocal noexpandtab
-
-  " Force ftypes on markdown and use wrapping
-  au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown | call s:setupWrapping()
-
-  " use 4 spaces for python indentation
-  au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
-
-  " Remember last location in file, but not for commit messages.
-  " see :help last-position-jump
-  au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g`\"" | endif
-endif
-
-" the mappings from Janus that I actually used:
-
-" use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
-" (it will prompt for sudo password when writing)
-cmap w!! %!sudo tee > /dev/null %
-
-" format the entire file
-nmap <leader>fef ggVG=
-
-" Map the arrow keys to be based on display lines, not physical lines
-map <Down> gj
-map <Up> gk
-
-" close vim if nerdtree is the only thing open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.o$', '\~$']
-" Default mapping, <leader>n
-map <leader>n :NERDTreeToggle<CR>
-
-"if janus#is_plugin_enabled("nerdtree")
-  "let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.o$', '\~$']
-
-  " Default mapping, <leader>n
-  "call janus#add_mapping('nerdtree', 'map', '<leader>n', ':NERDTreeToggle<CR>')
-
-  augroup AuNERDTreeCmd
-  autocmd AuNERDTreeCmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))
-  autocmd AuNERDTreeCmd FocusGained * call s:UpdateNERDTree()
-
-  " If the parameter is a directory, cd into it
-  function s:CdIfDirectory(directory)
-    let explicitDirectory = isdirectory(a:directory)
-    let directory = explicitDirectory || empty(a:directory)
-
-    if explicitDirectory
-      exe "cd " . fnameescape(a:directory)
+    " clipboard stuffs
+    if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
+      " on Linux use + register for copy-paste
+      set clipboard=unnamedplus
+    else
+      " one mac and windows, use * register for copy-paste
+      set clipboard=unnamed
     endif
+  " }
 
-    " Allows reading from stdin
-    " ex: git diff | mvim -R -
-    if strlen(a:directory) == 0
-      return
+  " Windows Compatibility {
+    if has('win32') || has('win64')
+      set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
     endif
+  " }
 
-    if directory
-      NERDTree
-      wincmd p
-      bd
-    endif
+  " Bundles! {
 
-    if explicitDirectory
-      wincmd p
-    endif
-  endfunction
+    " required as per vundle install
+    Bundle 'gmarik/vundle'
 
-  " NERDTree utility function
-  function s:UpdateNERDTree(...)
-    let stay = 0
+    " General { general purpose library of vimscript
+      Bundle 'tomtom/tlib_vim'
+      " mah theme! or not mine, specifically, but the one that I use
+      Bundle 'chriskempson/vim-tomorrow-theme'
+      " ensures that there's only ever one NERDTree, which is the behavior
+      " that I want
+      Bundle 'jistr/vim-nerdtree-tabs'
+      " the NERDTree, because NetRW is nice, but not so nice at the same
+      " time
+      Bundle 'scrooloose/nerdtree'
 
-    if(exists("a:1"))
-      let stay = a:1
-    end
+      let NERDTreeHijackNetrw = 0
+      " something I need to learn to use more often
+      Bundle 'tpope/vim-surround'
+      " another thing that I need to learn to use more often
+      Bundle 'kien/ctrlp.vim'
+      " fancy stuff in the status bar!
+      Bundle 'Lokaltog/vim-powerline'
 
-    if exists("t:NERDTreeBufName")
-      let nr = bufwinnr(t:NERDTreeBufName)
-      if nr != -1
-        exe nr . "wincmd w"
-        exe substitute(mapcheck("R"), "<CR>", "", "")
-        if !stay
-          wincmd p
-        end
+      let g:Powerline_symbols = 'fancy'
+      set guifont=Menlo\ for\ Powerline
+
+      " a motions tool I need to learn to use more
+      Bundle 'Lokaltog/vim-easymotion'
+      " stuff gets stupid without this
+      Bundle 'nathanaelkane/vim-indent-guides'
+      " a thing I honestly don't use
+      Bundle 'tpope/vim-git'
+      " hit <C-O> and then everything goes away! it's so zen!
+      Bundle 'vim-scripts/ZoomWin'
+    " }
+
+    " Programming {
+      " syntax checking for many languages. truly useful feature to have
+      " around.
+      Bundle 'scrooloose/syntastic'
+      " some kind of git integration. i don't use this much (even at all)
+      Bundle 'tpope/vim-fugitive'
+      " but i use this ALL the time!
+      Bundle 'scrooloose/nerdcommenter'
+      " if we have ctags, enable the tagbar (which i don't use much at all)
+      if executable('ctags')
+          Bundle 'majutsushi/tagbar'
       endif
+      " puts end statements where it makes sense in certain programming
+      " languages (ruby, mainly)
+      Bundle 'tpope/vim-endwise'
+      " something i need to learn to use more
+      Bundle 'michaeljsmith/vim-indent-object'
+    " }
+
+    " Python {
+      Bundle 'klen/python-mode'
+      Bundle 'python.vim'
+      Bundle 'python_match.vim'
+      Bundle 'pythoncomplete'
+      Bundle 'vim-scripts/scons.vim'
+      Bundle 'vim-scripts/Scons-compiler-plugin'
+    " }
+
+    " JS & Less CSS {
+      Bundle 'leshill/vim-json'
+      Bundle 'groenewege/vim-less'
+      Bundle 'pangloss/vim-javascript'
+      Bundle 'briancollins/vim-jst'
+      Bundle 'kchmck/vim-coffee-script'
+    " }
+
+    " HTML, CSS, SASS, & friends {
+      Bundle 'amirh/HTML-AutoCloseTag'
+      Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+      Bundle 'ap/vim-css-color'
+      Bundle 'tpope/vim-haml'
+      Bundle 'cakebaker/scss-syntax.vim'
+    " }
+
+    " Ruby! {
+      Bundle 'vim-ruby/vim-ruby'
+      Bundle 'tpope/vim-rails'
+      let g:rubycomplete_buffer_loading = 1
+      Bundle 'skwp/vim-rspec'
+    " }
+
+    " Etc? {
+      Bundle 'tpope/vim-markdown'
+      Bundle 'timcharper/textile.vim'
+    " }
+  " }
+" }
+
+" Configuration! {
+  " theme bollocks {
+    set background=dark
+    if has('gui_running')
+      colorscheme Tomorrow-Night
+    else
+      colorscheme Tomorrow-Night-Bright
     endif
-  endfunction
-"endif
+  " }
+
+  " resize window intelligently
+  if has('gui_running') && has('autocmd')
+    au VimResized * wincmd =
+  endif
+
+  " enable spelling in gui mode, which has nice underlining, but don't do it
+  " in console mode, which doesn't have nice underlining (that i've seen)
+  if has('gui_running')
+    set spell
+  endif
+
+  " vundle wants this; not totally sure why
+  filetype plugin indent on
+
+  " pilfered from Janus (mostly) {
+    function! s:setupWrapping()
+      set wrap
+      set linebreak
+      set textwidth=72
+      set nolist
+    endfunction
+    if has("autocmd")
+      " In Makefiles, use real tabs, not tabs expanded to spaces
+      au FileType make setlocal noexpandtab
+
+      " Force ftypes on markdown and use wrapping
+      au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown | call s:setupWrapping()
+
+      " use 4 spaces for python indentation, as per Python preferences in like
+      " PEP4 or something like that.
+      au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
+
+      " Remember last location in file, but not for commit messages.
+      " see :help last-position-jump - btw, this little bugger rocks!
+      au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal! g`\"" | endif
+    endif
+
+    " maps! {
+      " w!! = sudo save file - mighty userful little booger!
+      cmap w!! %!sudo tee > /dev/null %
+      " format entire file
+      nmap <leader>fef ggVG=
+      " use arrows to go up a screen line, not a literal line
+      map <Down> gj
+      map <Up> gk
+      " Default mapping, <leader>n
+      map <leader>n :NERDTreeToggle<CR>
+    " }
 
 
-syntax on
-set mouse=a
-scriptencoding utf-8
+    " close vim if nerdtree is the only thing open {
+      if has('autocmd')
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+      endif
+      let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.o$', '\~$']
+    " }
 
-set shortmess+=filmnrxoOtT
-set viewoptions=folds,options,cursor,unix,slash
-set virtualedit=onemore
-set history=1000
-set hidden
-set noswapfile
-set nobackup
-set nowb
+    " NERDTree configuration stuff {
+      augroup AuNERDTreeCmd
+      autocmd AuNERDTreeCmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))
+      autocmd AuNERDTreeCmd FocusGained * call s:UpdateNERDTree()
 
-set number
-set ruler
-syntax enable
+      " If the parameter is a directory, cd into it
+      function s:CdIfDirectory(directory)
+        let explicitDirectory = isdirectory(a:directory)
+        let directory = explicitDirectory || empty(a:directory)
 
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set list
-set backspace=indent,eol,start
+        if explicitDirectory
+          exe "cd " . fnameescape(a:directory)
+        endif
 
-if exists("g:enable_mvim_shift_arrow")
-  let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
-endif
+        " Allows reading from stdin
+        " ex: git diff | mvim -R -
+        if strlen(a:directory) == 0
+          return
+        endif
 
-" List chars
-set listchars=""                  " Reset the listchars
-set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
-set listchars+=trail:.            " show trailing spaces as dots
-set listchars+=extends:>          " The character to show in the last column when wrap is
-                                  " off and the line continues beyond the right of the screen
-set listchars+=precedes:<         " The character to show in the last column when wrap is
+        if directory
+          NERDTree
+          wincmd p
+          bd
+        endif
 
-""
-"" Searching
-""
+        if explicitDirectory
+          wincmd p
+        endif
+      endfunction
 
-set hlsearch    " highlight matches
-set incsearch   " incremental searching
-set ignorecase  " searches are case insensitive...
-set smartcase   " ... unless they contain at least one capital letter
+      " NERDTree utility function
+      function s:UpdateNERDTree(...)
+        let stay = 0
 
-""
-"" Wild settings
-""
+        if(exists("a:1"))
+          let stay = a:1
+        end
 
-" TODO: Investigate the precise meaning of these settings
-" set wildmode=list:longest,list:full
+        if exists("t:NERDTreeBufName")
+          let nr = bufwinnr(t:NERDTreeBufName)
+          if nr != -1
+            exe nr . "wincmd w"
+            exe substitute(mapcheck("R"), "<CR>", "", "")
+            if !stay
+              wincmd p
+            end
+          endif
+        endif
+      endfunction
 
-" Disable output and VCS files
-set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+    " }
 
-" Disable archive files
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+    " Other and misc configuration {
+      " syntax highlighting is very nice!
+      syntax on
+      " use the mouse on supporting ttys and stuff
+      set mouse=a
+      " utf-8 is da bomb!
+      scriptencoding utf-8
 
-" Ignore bundler and sass cache
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+      " slightly less annoying command failures
+      set shortmess+=filmnrxoOtT
+      " view folds, cursor, and other things i don't know about
+      set viewoptions=folds,options,cursor,unix,slash
+      " go one past line end for slightly more betterer editing experience
+      set virtualedit=onemore
+      " gimme a fat history, albert!
+      set history=1000
+      " wtf?
+      set hidden
+      " write buffering? sounds too slow to me
+      set nowb
 
-" Disable temp and backup files
-set wildignore+=*.swp,*~,._*
+      " LINE NUMBERZ!!!! <3
+      set number
+      " personally I use a meterstick
+      set ruler
+      " syntax on, and now enabled. perhaps redundant
+      syntax enable
 
-""
-"" Backup and swap files
-""
+      " set up tabstops and widths
+      set tabstop=2
+      set shiftwidth=2
+      set expandtab
 
-set backupdir=~/.vim/_backup//    " where to put backup files.
-set directory=~/.vim/_temp//      " where to put swap files." off and the line continues beyond the right of the screen
+      " not sure what this does
+      set list
 
-if has("statusline") && !&cp
-  set laststatus=2  " always show the status bar
+      " backspace over stuff, yoh
+      set backspace=indent,eol,start
 
-  " Start the status line
-  set statusline=%f\ %m\ %r
-  set statusline+=Line:%l/%L[%p%%]
-  set statusline+=Col:%v
-  set statusline+=Buf:#%n
-  set statusline+=[%b][0x%B]
-endif
+      " not sure what this does, either
+      if exists("g:enable_mvim_shift_arrow")
+        let macvim_hig_shift_movement = 1 " mvim shift-arrow-keys
+      endif
 
-" how to we scroll when we get to the end of the buffer viewport?
-set scrolloff=3
-set sidescrolloff=5
-set sidescroll=1
+      " List chars {
+        set listchars=""                  " Reset the listchars
+        set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
+        set listchars+=trail:.            " show trailing spaces as dots
+        set listchars+=extends:>          " The character to show in the last column when wrap is
+                                          " off and the line continues beyond the right of the screen
+        set listchars+=precedes:<         " The character to show in the last column when wrap is
+      " }
 
-set cursorline " show the cursor line by highlight
-set showcmd " what did this do?
-set ttyfast " just assume we have a fast terminal
+      " Searching {
+        set hlsearch    " highlight matches
+        set incsearch   " incremental searching
+        set ignorecase  " searches are case insensitive...
+        set smartcase   " ... unless they contain at least one capital letter
 
-au BufNewFile,BufRead SCons* set filetype=scons
+        " Wild settings {
+          " TODO: Investigate the precise meaning of these settings
+          " set wildmode=list:longest,list:full
+          " Disable output and VCS files
+          set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
 
-" cursor shape
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+          " Disable archive files
+          set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+          " Ignore bundler and sass cache
+          set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+          " Disable temp and backup files
+          set wildignore+=*.swp,*~,._*
+        " }
+      " }
+
+      " Backup and swap files {
+        set backupdir=~/.vim_backup//    " where to put backup files.
+        set directory=~/.vim_temp//      " where to put swap files.
+      " }
+
+      " statusline {
+        if has("statusline") && !&cp
+          set laststatus=2  " always show the status bar
+
+          " Start the status line
+          set statusline=%f\ %m\ %r
+          set statusline+=Line:%l/%L[%p%%]
+          set statusline+=Col:%v
+          set statusline+=Buf:#%n
+          set statusline+=[%b][0x%B]
+        endif
+      " }
+
+      " scrolling {
+        set scrolloff=3
+        set sidescrolloff=5
+        set sidescroll=1
+       " }
+
+      set cursorline " show the cursor line by highlight
+      set showcmd " what did this do?
+      set ttyfast " just assume we have a fast terminal
+
+      au BufNewFile,BufRead SCons* set filetype=scons
+
+      " cursor shape
+      let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+      let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    " }
+  " }
+" } i am the master of gratuitous indentation, ain't i?

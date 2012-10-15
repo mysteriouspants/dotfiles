@@ -61,6 +61,14 @@ something like this:
 
 # Step 4: Vim!
 
+Install the patched powerline fonts; I used the Menlo font found at
+here:
+
+https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
+
+Pick one that works on the platform you're using; consider writing some
+conditionals in .vimrc to handle that, too.
+
     vim +BundleInstall +qall
 
 My Vim config has finally left the era of Janus. I'm now rocking a
