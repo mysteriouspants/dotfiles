@@ -58,10 +58,12 @@ something like this:
 
 # Step 4: Vim!
 
-Install the patched powerline fonts; I used the Menlo font found at
-here:
+Install the patched powerline font; I used the Menlo font found at
+here (though it is included in the repo for the sake of laziness; just
+`cd ~/.dotfiles; open .` in order to get at it in OS X):
 
-https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
+    https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
+    https://gist.github.com/1627888
 
 Pick one that works on the platform you're using; consider writing some
 conditionals in .vimrc to handle that, too.
@@ -77,6 +79,17 @@ finding it doing things I'm not familiar with.
 # Step 5: ???
 
 # Step 6: Profit!
+
+# iTerm2
+
+Install iTerm2. In Preferences > General under the Preferences
+sub-heading, check "Load preferences from a user-defined folder or URL:"
+and then set that folder or URL to:
+
+    /Users/cmiller/.dotfiles/iTerm2
+
+Obviously you'll want to mangle that based on the local username. Reload
+iTerm2, and everything should be exactly as it should be. Fun, no?
 
 [skwp-dotfiles]: https://github.com/skwp/dotfiles
 [holman-dotfiles]: https://github.com/holman/dotfiles
