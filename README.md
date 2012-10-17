@@ -58,23 +58,25 @@ something like this:
 
 # Step 4: Vim!
 
-Install the patched powerline font; I used the Menlo font found at
-here (though it is included in the repo for the sake of laziness; just
-`cd ~/.dotfiles; open .` in order to get at it in OS X):
-
-    https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
-    https://gist.github.com/1627888
-
-Pick one that works on the platform you're using; consider writing some
-conditionals in .vimrc to handle that, too.
-
-    vim +BundleInstall +qall
-
 My Vim config has finally left the era of Janus. I'm now rocking a
 custom setup which is something of a hybrid between Janus and spf13's
 vim setup. This has created a very nice situation where I don't have a
 (lot) of stuff I don't use, and I'm not constantly hitting keys and
 finding it doing things I'm not familiar with.
+
+Install the right bundles by simply telling Vim (and Vundle) to do so:
+
+    vim +BundleInstall +qall
+
+Next, install the patched powerline font; I used the Menlo font found at
+here (though it is included in the repo for the sake of laziness; just
+`cd ~/.dotfiles; open .` in order to get at it in OS X):
+
+* https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
+* https://gist.github.com/1627888
+
+Pick one that works on the platform you're using; consider writing some
+conditionals in .vimrc to handle that, too.
 
 # Step 5: ???
 
