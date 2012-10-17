@@ -33,14 +33,17 @@
 
     " General { general purpose library of vimscript
       Bundle 'tomtom/tlib_vim'
-      " mah theme! or not mine, specifically, but the one that I use
-      Bundle 'chriskempson/vim-tomorrow-theme'
+      " mah theme! or not mine, specifically, but the one that I use,
+      " plus hax
+      Bundle 'NSError/vim-tomorrow-theme'
       " ensures that there's only ever one NERDTree, which is the behavior
       " that I want
       Bundle 'jistr/vim-nerdtree-tabs'
       " the NERDTree, because NetRW is nice, but not so nice at the same
       " time
       Bundle 'scrooloose/nerdtree'
+      " i tried living without this, doc, but it just don't work
+      Bundle 'ervandew/supertab'
 
       let NERDTreeHijackNetrw = 0
       " something I need to learn to use more often

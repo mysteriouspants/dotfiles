@@ -65,6 +65,14 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 source /usr/local/Cellar/autoenv/0.1.0/activate.sh
 
+
+# disable FU***CKZING autocorrect
+# bundle exec vagrant up
+# WOULD U LIEK ME 2 INCORRECTLY THINK YOU MEANT .vagrant??? PLZ?
+#
+# NO F U & GO AWAY STUPID COMPUTER MAN!
+unsetopt correct_all
+
 # svn add and set text/plain eol-style native
 svn_add_and_set () {
   svn add $1
