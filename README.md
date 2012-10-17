@@ -28,9 +28,6 @@ order anyway:
     `corkscrew`
 * Set default shell to ZSH
 * Install Oh-My-ZSH
-* Install RVM (don't install rubies or gems yet until dotfiles are
-  cloned, unless you like having megabytes of ri/rdoc nonsense floating
-  around).
 * Install my SSH keys (they should be floating around Dropbox
   somewhere...)
 * SSH to some server to put the auth in Keychain (for no more annoying
