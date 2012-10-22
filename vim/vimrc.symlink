@@ -36,6 +36,7 @@
       " mah theme! or not mine, specifically, but the one that I use,
       " plus hax
       Bundle 'NSError/vim-tomorrow-theme'
+      Bundle 'noahfrederick/Hemisu'
       " ensures that there's only ever one NERDTree, which is the behavior
       " that I want
       Bundle 'jistr/vim-nerdtree-tabs'
@@ -126,11 +127,13 @@
 
 " Configuration! {
   " theme bollocks {
-    set background=dark
+    syntax on
     if has('gui_running')
-      colorscheme Tomorrow-Night
+      set background=light
+      colorscheme hemisu
     else
-      colorscheme Tomorrow-Night-Bright
+      set background=dark
+      colorscheme hemisu
     endif
   " }
 
@@ -246,8 +249,6 @@
     " }
 
     " Other and misc configuration {
-      " syntax highlighting is very nice!
-      syntax on
       " use the mouse on supporting ttys and stuff
       set mouse=a
       " utf-8 is da bomb!
@@ -261,8 +262,6 @@
       set virtualedit=onemore
       " gimme a fat history, albert!
       set history=1000
-      " wtf?
-      set hidden
       " write buffering? sounds too slow to me
       set nowb
 
