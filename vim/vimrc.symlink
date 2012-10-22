@@ -84,6 +84,8 @@
       Bundle 'tpope/vim-endwise'
       " something i need to learn to use more
       Bundle 'michaeljsmith/vim-indent-object'
+      " automagically sets the current builder (scons, make, rake, etc)
+      Bundle 'johnsyweb/vim-makeshift'
     " }
 
     " Python {
@@ -129,11 +131,11 @@
   " theme bollocks {
     syntax on
     if has('gui_running')
+      colorscheme hemisu
       set background=light
-      colorscheme hemisu
     else
-      set background=dark
       colorscheme hemisu
+      set background=dark
     endif
   " }
 
