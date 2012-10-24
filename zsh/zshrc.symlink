@@ -73,9 +73,13 @@ source /usr/local/Cellar/autoenv/0.1.0/activate.sh
 # NO F U & GO AWAY STUPID COMPUTER MAN!
 unsetopt correct_all
 
-# svn add and set text/plain eol-style native
-svn_add_and_set () {
-  svn add $1
-  svn pset svn:mime-type text/plain $1
-  svn pset svn:eol-style native $1
+# svn add and set text/plain eol-style native, because evidently
+# freaking autoprops don't work anymore
+pset_stuff () {
+  for file in $@; do
+    svn add `basename $file`
+    svn add $file
+    svn pset svn:mime-type text/plain $file
+    svn pset svn:eol-style native $file
+  done
 }
