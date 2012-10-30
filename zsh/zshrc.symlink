@@ -10,9 +10,6 @@ if [[ -a ~/.secrets ]] then source ~/.secrets; fi
 #        executable search path        #
 # #################################### #
 
-echo "PATH: $PATH"
-echo "path_helper: `which path_helper`"
-
 # Git - Use the Git install from Xcode.app
 GIT_HOME=/Applications/Xcode.app/Contents/Developer
 GIT_PATH=${GIT_HOME}/usr/bin
