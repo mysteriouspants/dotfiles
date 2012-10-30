@@ -10,15 +10,26 @@ if [[ -a ~/.secrets ]] then source ~/.secrets; fi
 #        executable search path        #
 # #################################### #
 
+echo "PATH: $PATH"
+echo "path_helper: `which path_helper`"
+
 # Git - Use the Git install from Xcode.app
 GIT_HOME=/Applications/Xcode.app/Contents/Developer
 GIT_PATH=${GIT_HOME}/usr/bin
 # PosgreSQL - Get it at http://postgresapp.com/
 POSTGRES_APP_BIN=/Applications/PostgreSQL/Postgres.app/Contents/MacOS/bin
+X11_PATH=/usr/X11/bin
 # The actual export line - how exciting!
-export PATH=${GIT_PATH}:${POSTGRES_APP_BIN}:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
+PATH=${GIT_PATH}:${POSTGRES_APP_BIN}:${X11_PATH}
 # 'coz I use man all the time, yoh
-export MANPATH=${GIT_HOME}/usr/share/man:${MANPATH}
+MANPATH=${GIT_HOME}/usr/share/man
+
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+else
+  export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/sbin:/bin
+  export MANPATH=$MANPATH:/usr/share/man:/usr/local/share/man:/opt/X11/share/man
+fi
 
 # #################################### #
 # OH-MY-ZSH - Because ZSH is cool, and #
@@ -29,7 +40,9 @@ export MANPATH=${GIT_HOME}/usr/share/man:${MANPATH}
 
 ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="juanghurtado" # used to be kardan, which I like
+ZSH_THEME="agnoster"
+DEFAULT_USER=cmiller # hides the user@hostname
+# ZSH_THEME="juanghurtado" # used to be kardan, which I like
 COMPLETION_WAITING_DOTS="true"
 plugins=(zsh-syntax-highlighting git)
 
