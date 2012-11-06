@@ -1,6 +1,3 @@
-" -*- mode: vimscript -*-
-" vi: set ft=vimscript :
-
 " Environment {
   " Basics {
     set nocompatible      " be viMproved
@@ -33,10 +30,11 @@
 
     " General { general purpose library of vimscript
       Bundle 'tomtom/tlib_vim'
-      " mah theme! or not mine, specifically, but the one that I use,
-      " plus hax
-      Bundle 'NSError/vim-tomorrow-theme'
-      Bundle 'noahfrederick/Hemisu'
+      " Themes {
+        Bundle 'NSError/vim-tomorrow-theme'
+        Bundle 'noahfrederick/Hemisu'
+        Bundle 'nanotech/jellybeans.vim'
+      " }
       " ensures that there's only ever one NERDTree, which is the behavior
       " that I want
       Bundle 'jistr/vim-nerdtree-tabs'
@@ -45,6 +43,7 @@
       Bundle 'scrooloose/nerdtree'
       " i tried living without this, doc, but it just don't work
       Bundle 'ervandew/supertab'
+      Bundle 'jdonaldson/vim-addon-local-vimrc'
 
       let NERDTreeHijackNetrw = 0
       " something I need to learn to use more often
@@ -65,6 +64,8 @@
       Bundle 'tpope/vim-git'
       " hit <C-O> and then everything goes away! it's so zen!
       Bundle 'vim-scripts/ZoomWin'
+      " super-cool tab-based stuff
+      Bundle 'godlygeek/tabular'
     " }
 
     " Programming {
@@ -131,10 +132,10 @@
   " theme bollocks {
     syntax on
     if has('gui_running')
-      colorscheme hemisu
-      set background=light
+      colorscheme jellybeans
+      set background=dark
     else
-      colorscheme hemisu
+      colorscheme jellybeans
       set background=dark
     endif
   " }
@@ -142,12 +143,6 @@
   " resize window intelligently
   if has('gui_running') && has('autocmd')
     au VimResized * wincmd =
-  endif
-
-  " enable spelling in gui mode, which has nice underlining, but don't do it
-  " in console mode, which doesn't have nice underlining (that i've seen)
-  if has('gui_running')
-    set spell
   endif
 
   " vundle wants this; not totally sure why
@@ -232,7 +227,7 @@
       function s:UpdateNERDTree(...)
         let stay = 0
 
-        if(exists("a:1"))
+        if exists("a:1")
           let stay = a:1
         end
 
@@ -297,6 +292,13 @@
         set listchars+=extends:>          " The character to show in the last column when wrap is
                                           " off and the line continues beyond the right of the screen
         set listchars+=precedes:<         " The character to show in the last column when wrap is
+      " }
+
+      " Syntastic {
+        let g:syntastic_enable_signs=1
+        let g:syntastic_error_symbol='✗'
+        let g:syntastic_warning_symbol='⚠'
+        let g:syntastic_enable_balloons=1
       " }
 
       " Searching {
