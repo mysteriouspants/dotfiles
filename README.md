@@ -17,9 +17,9 @@ In no specific order, yet some kind of forethought has been taken in the
 order anyway:
 
 * Xcode
-* Xcode CLI tools
 * OS X GCC installer (if you plan on using any version of ruby before
   1.9.3 - otherwise this can be skipped).
+* Xcode CLI tools
 * Homebrew
   * Install `macvim`
   * Install `autoenv`
@@ -27,7 +27,6 @@ order anyway:
   * If still behind that freakin annoying work firewall, install
     `corkscrew`
 * Set default shell to ZSH
-* Install Oh-My-ZSH
 * Install my SSH keys (they should be floating around Dropbox
   somewhere...)
 * SSH to some server to put the auth in Keychain (for no more annoying
