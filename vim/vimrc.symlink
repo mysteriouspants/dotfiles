@@ -34,6 +34,7 @@
         Bundle 'NSError/vim-tomorrow-theme'
         Bundle 'noahfrederick/Hemisu'
         Bundle 'nanotech/jellybeans.vim'
+        Bundle 'altercation/vim-colors-solarized'
       " }
       " ensures that there's only ever one NERDTree, which is the behavior
       " that I want
@@ -135,7 +136,7 @@
       colorscheme jellybeans
       set background=dark
     else
-      colorscheme jellybeans
+      colorscheme solarized
       set background=dark
     endif
   " }
