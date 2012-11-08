@@ -46,6 +46,8 @@ prompt_dir() {
   prompt_segment blue black '%2~'
 }
 
+PROMPT=`echo -n $PROMPT'\e]50;CursorShape=1\eG'`
+
 # #################################### #
 # EDITORS - I love me my editors       #
 # #################################### #
