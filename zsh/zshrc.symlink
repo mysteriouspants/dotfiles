@@ -39,14 +39,12 @@ antigen-lib
 antigen-bundle git
 antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-bundle kennethreitz/autoenv
-antigen-theme agnoster
+antigen-theme kardan # i give up and delcare love for kardan theme
 
 # override to get shorter dirs
 prompt_dir() {
   prompt_segment blue black '%2~'
 }
-
-PROMPT=`echo -n $PROMPT'\e]50;CursorShape=1\eG'`
 
 # #################################### #
 # EDITORS - I love me my editors       #

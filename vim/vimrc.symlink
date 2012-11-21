@@ -35,6 +35,7 @@
         Bundle 'noahfrederick/Hemisu'
         Bundle 'nanotech/jellybeans.vim'
         Bundle 'altercation/vim-colors-solarized'
+        Bundle 'vim-scripts/Liquid-Carbon'
       " }
       " ensures that there's only ever one NERDTree, which is the behavior
       " that I want
@@ -133,10 +134,11 @@
   " theme bollocks {
     syntax on
     if has('gui_running')
-      colorscheme jellybeans
+      colorscheme liquidcarbon
       set background=dark
     else
-      colorscheme solarized
+      let g:liquidcarbon_high_contrast=1
+      colorscheme liquidcarbon
       set background=dark
     endif
   " }
