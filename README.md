@@ -23,7 +23,7 @@ order anyway:
 * Homebrew
   * Install `macvim`
   * Install `autoenv`
-  * Install `rbenv` and `ruby-build`
+  * Install `rbenv`,  `rbenv-bundler`, and `ruby-build`
   * If still behind that freakin annoying work firewall, install
     `corkscrew`
 * Set default shell to ZSH
@@ -92,5 +92,8 @@ and then set that folder or URL to:
 Obviously you'll want to mangle that based on the local username. Reload
 iTerm2, and everything should be exactly as it should be. Fun, no?
 
+If the theme doesn't come on over, try installing [Liquid Carbon][lq].
+
 [skwp-dotfiles]: https://github.com/skwp/dotfiles
 [holman-dotfiles]: https://github.com/holman/dotfiles
+[lq]: https://github.com/markcho/iTerm2_LiquidCarbon

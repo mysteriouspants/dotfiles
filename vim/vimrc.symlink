@@ -106,12 +106,13 @@
       Bundle 'pangloss/vim-javascript'
       Bundle 'briancollins/vim-jst'
       Bundle 'kchmck/vim-coffee-script'
+      Bundle 'ap/vim-css-color'
+      Bundle 'hail2u/vim-css3-syntax'
     " }
 
     " HTML, CSS, SASS, & friends {
       Bundle 'amirh/HTML-AutoCloseTag'
       Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-      Bundle 'ap/vim-css-color'
       Bundle 'tpope/vim-haml'
       Bundle 'cakebaker/scss-syntax.vim'
     " }
@@ -255,7 +256,7 @@
       scriptencoding utf-8
 
       " slightly less annoying command failures
-      set shortmess+=filmnrxoOtT
+      "set shortmess+=filmnrxoOtT
       " view folds, cursor, and other things i don't know about
       set viewoptions=folds,options,cursor,unix,slash
       " go one past line end for slightly more betterer editing experience
