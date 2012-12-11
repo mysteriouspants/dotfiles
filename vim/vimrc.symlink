@@ -256,7 +256,7 @@
       scriptencoding utf-8
 
       " slightly less annoying command failures
-      "set shortmess+=filmnrxoOtT
+      set shortmess+=filmnrxoOtT
       " view folds, cursor, and other things i don't know about
       set viewoptions=folds,options,cursor,unix,slash
       " go one past line end for slightly more betterer editing experience
@@ -352,7 +352,9 @@
         set sidescroll=1
        " }
 
-      set cursorline " show the cursor line by highlight
+      if has('gui_running')
+        set cursorline " show the cursor line by highlight
+      endif
       set showcmd " what did this do?
       set ttyfast " just assume we have a fast terminal
 
