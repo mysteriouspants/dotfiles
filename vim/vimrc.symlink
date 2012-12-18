@@ -53,10 +53,10 @@
       " another thing that I need to learn to use more often
       Bundle 'kien/ctrlp.vim'
       " fancy stuff in the status bar!
-      Bundle 'Lokaltog/vim-powerline'
+      "Bundle 'Lokaltog/vim-powerline'
 
-      let g:Powerline_symbols = 'fancy'
-      set guifont=Menlo\ for\ Powerline
+      "let g:Powerline_symbols = 'fancy'
+      "set guifont=Menlo\ for\ Powerline
 
       " a motions tool I need to learn to use more
       Bundle 'Lokaltog/vim-easymotion'
