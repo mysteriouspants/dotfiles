@@ -38,11 +38,15 @@
         Bundle 'vim-scripts/Liquid-Carbon'
       " }
       " ensures that there's only ever one NERDTree, which is the behavior
-      " that I want
-      Bundle 'jistr/vim-nerdtree-tabs'
+      " that I want; note that these are terrible on windows due to it
+      " trying to scan my entire user folder on startup. probably a way
+      " around it, but i'm much too lazy to find it.
+      if !has('win32') && !has('win64')
+        Bundle 'jistr/vim-nerdtree-tabs'
       " the NERDTree, because NetRW is nice, but not so nice at the same
       " time
-      Bundle 'scrooloose/nerdtree'
+        Bundle 'scrooloose/nerdtree'
+      endif
       " i tried living without this, doc, but it just don't work
       Bundle 'ervandew/supertab'
       Bundle 'jdonaldson/vim-addon-local-vimrc'
@@ -265,6 +269,10 @@
       set history=1000
       " write buffering? sounds too slow to me
       set nowb
+      " swaps seem to not work so well in windows
+      if has('win32') || has('win64')
+        set noswapfile
+      endif
 
       " LINE NUMBERZ!!!! <3
       set number
@@ -329,20 +337,22 @@
       " }
 
       " Backup and swap files {
+      if has('win32') || has('win64')
         set backupdir=~/.vim_backup//    " where to put backup files.
         set directory=~/.vim_temp//      " where to put swap files.
+      endif
       " }
 
       " statusline {
         if has("statusline") && !&cp
           set laststatus=2  " always show the status bar
-
+          set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
           " Start the status line
-          set statusline=%f\ %m\ %r
-          set statusline+=Line:%l/%L[%p%%]
-          set statusline+=Col:%v
-          set statusline+=Buf:#%n
-          set statusline+=[%b][0x%B]
+          " set statusline=%f\ %m\ %r
+          " set statusline+=Line:%l/%L[%p%%]
+          " set statusline+=Col:%v
+          " set statusline+=Buf:#%n
+          " set statusline+=[%b][0x%B]
         endif
       " }
 
@@ -363,6 +373,14 @@
       " cursor shape
       let &t_SI = "\<Esc>]50;CursorShape=1\x7"
       let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+      " font stuff
+      if has('gui_running')
+        if has('win32') || has('win64')
+          " it's gvim
+          set guifont=Lucida\ Console:h10
+        endif
+      endif
     " }
   " }
 " } i am the master of gratuitous indentation, ain't i?
