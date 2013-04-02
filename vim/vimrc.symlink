@@ -42,16 +42,16 @@
       " trying to scan my entire user folder on startup. probably a way
       " around it, but i'm much too lazy to find it.
       if !has('win32') && !has('win64')
-        Bundle 'jistr/vim-nerdtree-tabs'
+        "Bundle 'jistr/vim-nerdtree-tabs'
       " the NERDTree, because NetRW is nice, but not so nice at the same
       " time
-        Bundle 'scrooloose/nerdtree'
+        "Bundle 'scrooloose/nerdtree'
       endif
       " i tried living without this, doc, but it just don't work
-      Bundle 'ervandew/supertab'
+      "Bundle 'ervandew/supertab'
       "Bundle 'jdonaldson/vim-addon-local-vimrc'
 
-      let NERDTreeHijackNetrw = 0
+      "let NERDTreeHijackNetrw = 0
       " something I need to learn to use more often
       "Bundle 'tpope/vim-surround'
       " another thing that I need to learn to use more often
@@ -167,6 +167,9 @@
       " In Makefiles, use real tabs, not tabs expanded to spaces
       au FileType make setlocal noexpandtab
 
+      au FileType markdown set spell
+      au FileType gitcommit set spell
+
       " Force ftypes on markdown and use wrapping
       au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown | call s:setupWrapping()
 
@@ -189,69 +192,10 @@
       map <Down> gj
       map <Up> gk
       " Default mapping, <leader>n
-      map <leader>n :NERDTreeToggle<CR>
+      "map <leader>n :NERDTreeToggle<CR>
     " }
 
 
-    " close vim if nerdtree is the only thing open {
-      if has('autocmd')
-        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-      endif
-      let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.o$', '\~$']
-    " }
-
-    " NERDTree configuration stuff {
-      augroup AuNERDTreeCmd
-      autocmd AuNERDTreeCmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))
-      autocmd AuNERDTreeCmd FocusGained * call s:UpdateNERDTree()
-
-      " If the parameter is a directory, cd into it
-      function s:CdIfDirectory(directory)
-        let explicitDirectory = isdirectory(a:directory)
-        let directory = explicitDirectory || empty(a:directory)
-
-        if explicitDirectory
-          exe "cd " . fnameescape(a:directory)
-        endif
-
-        " Allows reading from stdin
-        " ex: git diff | mvim -R -
-        if strlen(a:directory) == 0
-          return
-        endif
-
-        if directory
-          NERDTree
-          wincmd p
-          bd
-        endif
-
-        if explicitDirectory
-          wincmd p
-        endif
-      endfunction
-
-      " NERDTree utility function
-      function s:UpdateNERDTree(...)
-        let stay = 0
-
-        if exists("a:1")
-          let stay = a:1
-        end
-
-        if exists("t:NERDTreeBufName")
-          let nr = bufwinnr(t:NERDTreeBufName)
-          if nr != -1
-            exe nr . "wincmd w"
-            exe substitute(mapcheck("R"), "<CR>", "", "")
-            if !stay
-              wincmd p
-            end
-          endif
-        endif
-      endfunction
-
-    " }
 
     " Other and misc configuration {
       " use the mouse on supporting ttys and stuff
@@ -356,12 +300,6 @@
         endif
       " }
 
-      " scrolling {
-        set scrolloff=3
-        set sidescrolloff=5
-        set sidescroll=1
-       " }
-
       if has('gui_running')
         set cursorline " show the cursor line by highlight
       endif
@@ -379,8 +317,17 @@
         if has('win32') || has('win64')
           " it's gvim
           set guifont=Lucida\ Console:h10
+        elseif has('gui_macvim')
+          " it's macvim
+          set guifont=Menlo:h15
         endif
       endif
     " }
+
+    " scrolling {
+      set scrolloff=3
+      set sidescrolloff=5
+      set sidescroll=1
+     " }
   " }
 " } i am the master of gratuitous indentation, ain't i?
