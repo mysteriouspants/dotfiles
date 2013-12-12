@@ -23,6 +23,8 @@
     endif
   " }
 
+    let NERDTreeHijackNetrw = 0
+
   " Bundles! {
 
     " required as per vundle install
@@ -46,7 +48,7 @@
       " the NERDTree, because NetRW is nice, but not so nice at the same
       " time
         Bundle 'scrooloose/nerdtree'
-        " Bundle 'jistr/vim-nerdtree-tabs'
+        Bundle 'jistr/vim-nerdtree-tabs'
       endif
       " i tried living without this, doc, but it just don't work
       "Bundle 'ervandew/supertab'
@@ -154,6 +156,8 @@
     au VimResized * wincmd =
   endif
 
+  let g:nerdtree_tabs_smart_startup_focus=2
+
   " vundle wants this; not totally sure why
   filetype plugin indent on
 
@@ -193,7 +197,8 @@
       map <Down> gj
       map <Up> gk
       " Default mapping, <leader>n
-      "map <leader>n :NERDTreeToggle<CR>
+      map <leader>n :NERDTreeToggle<CR>
+      map <Leader>n <plug>NERDTreeTabsToggle<CR>
     " }
 
 
