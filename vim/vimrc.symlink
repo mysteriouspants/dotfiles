@@ -36,16 +36,17 @@
         " Bundle 'nanotech/jellybeans.vim'
         " Bundle 'altercation/vim-colors-solarized'
         " Bundle 'vim-scripts/Liquid-Carbon'
+        Bundle 'nelstrom/vim-mac-classic-theme'
       " }
       " ensures that there's only ever one NERDTree, which is the behavior
       " that I want; note that these are terrible on windows due to it
       " trying to scan my entire user folder on startup. probably a way
       " around it, but i'm much too lazy to find it.
       if !has('win32') && !has('win64')
-        Bundle 'jistr/vim-nerdtree-tabs'
       " the NERDTree, because NetRW is nice, but not so nice at the same
       " time
         Bundle 'scrooloose/nerdtree'
+        " Bundle 'jistr/vim-nerdtree-tabs'
       endif
       " i tried living without this, doc, but it just don't work
       "Bundle 'ervandew/supertab'
@@ -119,6 +120,7 @@
       Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
       Bundle 'tpope/vim-haml'
       Bundle 'cakebaker/scss-syntax.vim'
+      Bundle 'groenewege/vim-less'
     " }
 
     " Ruby! {
@@ -138,10 +140,9 @@
 " Configuration! {
   " theme bollocks {
     syntax on
-    " if has('gui_running')
-    "   colorscheme liquidcarbon
-    "   set background=dark
-    " else
+    if has('gui_running')
+      colorscheme mac_classic
+    end
     "   let g:liquidcarbon_high_contrast=1
     "   colorscheme liquidcarbon
     "   set background=dark
