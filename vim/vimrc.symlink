@@ -33,11 +33,11 @@
     " General { general purpose library of vimscript
       Bundle 'tomtom/tlib_vim'
       " Themes {
-        " Bundle 'NSError/vim-tomorrow-theme'
-        " Bundle 'noahfrederick/Hemisu'
-        " Bundle 'nanotech/jellybeans.vim'
-        " Bundle 'altercation/vim-colors-solarized'
-        " Bundle 'vim-scripts/Liquid-Carbon'
+        Bundle 'NSError/vim-tomorrow-theme'
+        Bundle 'noahfrederick/Hemisu'
+        Bundle 'nanotech/jellybeans.vim'
+        Bundle 'altercation/vim-colors-solarized'
+        Bundle 'vim-scripts/Liquid-Carbon'
         Bundle 'nelstrom/vim-mac-classic-theme'
       " }
       " ensures that there's only ever one NERDTree, which is the behavior
@@ -51,19 +51,13 @@
         Bundle 'jistr/vim-nerdtree-tabs'
       endif
       " i tried living without this, doc, but it just don't work
-      "Bundle 'ervandew/supertab'
+      Bundle 'ervandew/supertab'
       "Bundle 'jdonaldson/vim-addon-local-vimrc'
 
-      "let NERDTreeHijackNetrw = 0
       " something I need to learn to use more often
       "Bundle 'tpope/vim-surround'
       " another thing that I need to learn to use more often
       Bundle 'kien/ctrlp.vim'
-      " fancy stuff in the status bar!
-      "Bundle 'Lokaltog/vim-powerline'
-
-      "let g:Powerline_symbols = 'fancy'
-      "set guifont=Menlo\ for\ Powerline
 
       " a motions tool I need to learn to use more
       Bundle 'Lokaltog/vim-easymotion'
@@ -115,14 +109,17 @@
       Bundle 'kchmck/vim-coffee-script'
       Bundle 'ap/vim-css-color'
       Bundle 'hail2u/vim-css3-syntax'
+      Bundle 'mmalecki/vim-node.js'
     " }
 
     " HTML, CSS, SASS, & friends {
+      Bundle 'pthree/html5.vim'
       Bundle 'amirh/HTML-AutoCloseTag'
       Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
       Bundle 'tpope/vim-haml'
       Bundle 'cakebaker/scss-syntax.vim'
       Bundle 'groenewege/vim-less'
+      Bundle 'nono/vim-handlebars'
     " }
 
     " Ruby! {
@@ -140,23 +137,21 @@
 " }
 
 " Configuration! {
-  " theme bollocks {
-    syntax on
-    if has('gui_running')
-      colorscheme mac_classic
-    end
-    "   let g:liquidcarbon_high_contrast=1
-    "   colorscheme liquidcarbon
-    "   set background=dark
-    " endif
-  " }
-
+"
+  color liquidcarbon
+"
   " resize window intelligently
   if has('gui_running') && has('autocmd')
     au VimResized * wincmd =
   endif
 
-  let g:nerdtree_tabs_smart_startup_focus=2
+  " let g:nerdtree_tabs_smart_startup_focus=2
+
+  " CtrlP ignore patterns
+  let g:ctrlp_custom_ignore = {
+              \ 'dir': '\.git$\|node_modules$\|\.hg$\|\.svn$',
+              \ 'file': '\.exe$\|\.so$'
+              \ }
 
   " vundle wants this; not totally sure why
   filetype plugin indent on
