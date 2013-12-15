@@ -47,8 +47,8 @@
       if !has('win32') && !has('win64')
       " the NERDTree, because NetRW is nice, but not so nice at the same
       " time
-        Bundle 'scrooloose/nerdtree'
-        Bundle 'jistr/vim-nerdtree-tabs'
+        " Bundle 'scrooloose/nerdtree'
+        " Bundle 'jistr/vim-nerdtree-tabs'
       endif
       " i tried living without this, doc, but it just don't work
       Bundle 'ervandew/supertab'
@@ -138,7 +138,7 @@
 
 " Configuration! {
 "
-  color liquidcarbon
+  color Mac_Classic
 "
   " resize window intelligently
   if has('gui_running') && has('autocmd')
